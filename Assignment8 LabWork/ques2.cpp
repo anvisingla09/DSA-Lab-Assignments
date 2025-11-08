@@ -115,3 +115,61 @@ int main(){
 }
 
 
+// INORDER SUCCESSOR AND PREDECESSOR
+#include<iostream>
+using namespace std;
+struct Node{
+public:
+int data;
+Node* left;
+Node* right;
+Node(int val){
+  data = val;
+  left = right = NULL;
+}
+};
+Node* inorderSuccessor(Node* root, Node* node) {
+  Node* succ = NULL;
+  while(root != NULL) {
+      if(node->data < root->data) {
+          succ = root;
+          root = root->left;
+      } else root = root->right;
+  }
+  return succ;
+}
+
+Node* inorderPredecessor(Node* root, Node* node) {
+  Node* pred = NULL;
+  while(root != NULL) {
+      if(node->data > root->data) {
+          pred = root;
+          root = root->right;
+      } else root = root->left;
+  }
+  return pred;
+}
+int main(){
+  Node* root = new Node(4);
+  root->left = new Node(2);
+  root->right = new Node(6);
+  root->left->left = new Node(1);
+  root->left->right = new Node(3);
+  Node* node = root->left;
+    Node* succ = inorderSuccessor(root, node);
+    Node* pred = inorderPredecessor(root, node);
+
+    if (succ != NULL)
+        cout << "Inorder Successor is: " << succ->data << endl;
+    else
+        cout << "Inorder Successor does not exist" << endl;
+
+    if (pred != NULL)
+        cout << "Inorder Predecessor is: " << pred->data << endl;
+    else
+        cout << "Inorder Predecessor does not exist" << endl;
+return 0;
+}
+
+
+
